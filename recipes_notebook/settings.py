@@ -26,8 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'recipes_notebook.accounts',
+    'recipes_notebook.common',
 
-    'cloudinary'
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
