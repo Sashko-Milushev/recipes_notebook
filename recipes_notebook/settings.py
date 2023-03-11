@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'recipes_notebook.common',
 
     'cloudinary',
+
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.AppUser'
 
 CLOUDINARY_URL = config('CLOUDINARY_URL')
+
+
