@@ -42,6 +42,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = ['recipes_notebook.accounts.backends.EmailBackend',
+                           'django.contrib.auth.backends.ModelBackend', ]
+
 ROOT_URLCONF = 'recipes_notebook.urls'
 
 TEMPLATES = [
@@ -120,4 +123,4 @@ AUTH_USER_MODEL = 'accounts.AppUser'
 
 CLOUDINARY_URL = config('CLOUDINARY_URL')
 
-
+LOGIN_REDIRECT_URL = 'home'
