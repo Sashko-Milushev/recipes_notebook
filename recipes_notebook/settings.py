@@ -119,6 +119,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATICFILES_DIRS = (
+    BASE_DIR / 'staticfiles',
+)
+
 AUTH_USER_MODEL = 'accounts.AppUser'
 
 CLOUDINARY_URL = config('CLOUDINARY_URL')

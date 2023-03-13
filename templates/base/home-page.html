@@ -1,7 +1,35 @@
 {% extends 'base/base-page.html' %}
 
+
 {% block page_content %}
-    <h1>
-    HOME PAGE
-    </h1>
+    <div class="jumbotron text-center"
+         style="background-image: url('http://127.0.0.1:8000/static/images/background.jpg'); background-size: contain;
+                background-position: center center;
+                background-repeat: no-repeat;
+                text-decoration-color: lightcyan;
+                height: 300px;">
+        <h2>Welcome to Our Food Recipe Website!</h2>
+        <p>Explore and share amazing recipes with the community.</p>
+        <a href="#" class="btn btn-primary btn-lg">View Recipes</a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Discover New Recipes</h2>
+                <p>Browse our collection of recipes for every meal of the day. From breakfast to dinner, we have
+                    something for everyone.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Share Your Own Recipes</h2>
+                <p>Join our community of food lovers and share your favorite recipes with others. It's easy to add your
+                    own recipe and start sharing today!</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Connect with Other Foodies</h2>
+                <p>Follow other members to keep up with their latest recipes and get inspiration for your own cooking.
+                    Comment on recipes and share your own tips and tricks.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
