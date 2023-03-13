@@ -1,0 +1,31 @@
+{% extends 'base/base-page.html' %}
+
+{% block page_content %}
+    <form class="form-horizontal" method="post" action="{% url 'update user' pk=user_pk %}">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="usr">First Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="usr" name="first_name" value="{{ user.first_name }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="usr">Last Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="usr" name="last_name" value="{{ user.last_name }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email address:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+{% endblock %}

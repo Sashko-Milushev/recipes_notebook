@@ -1,6 +1,6 @@
 from django.contrib.auth import forms as auth_forms, get_user_model, authenticate
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 UserModel = get_user_model()
 
@@ -40,3 +40,10 @@ class LoginForm(AuthenticationForm):
             else:
                 self.confirm_login_allowed(self.user_cache)
         return self.cleaned_data
+
+
+class UpdateUserForm(forms.ModelForm):
+    class Meta:
+        model = UserModel
+        fields = ('first_name', 'last_name', 'email')
+

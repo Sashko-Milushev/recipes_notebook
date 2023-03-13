@@ -4,6 +4,11 @@ from cloudinary.models import CloudinaryField
 
 
 class AppUser(AbstractUser):
+    email = models.EmailField(
+        unique=True,
+        blank=False,
+        null=False
+    )
 
-    profile_picture = CloudinaryField('image')
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = 'email'

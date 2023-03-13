@@ -13,7 +13,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Recipes-Notebook</a>
+                <a class="navbar-brand" href="{% url 'home' %}">Recipes-Notebook</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Dashboard</a></li>
@@ -30,8 +30,15 @@
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'register user' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-                <li><a href="{% url 'login user' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'update user' pk=user.pk %}"><span class="glyphicon glyphicon-user"></span> My profile</a>
+                    <li><a href="{% url 'logout user' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'register user' %}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                    </li>
+                    <li><a href="{% url 'login user' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
