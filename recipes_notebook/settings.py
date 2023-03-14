@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
     'recipes_notebook.accounts',
     'recipes_notebook.common',
+    'recipes_notebook.recipes',
 
     'cloudinary',
 

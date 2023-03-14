@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="#" alt="Recipe Image">
+                    <div class="card-body">
+                        <h2 class="card-title">sarmi</h2>
+                        <h5 class="card-subtitle mb-3 text-muted">By Sashko on 22/03/23</h5>
+                        <p class="card-text">"This delicious recipe is perfect for a cozy night in. Made with fresh
+                            ingredients and seasoned to perfection, this meal will satisfy your cravings and leave you
+                            feeling satisfied. Whether you're cooking for one or hosting a dinner party, this recipe is
+                            sure to impress. Don't forget to pair it with your favorite wine or beer for the ultimate
+                            dining experience!"</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Ingredients:</strong></li>
+{#                        {% for ingredient in recipe.ingredients %}#}
+                            <li class="list-group-item">oriz</li>
+{#                        {% endfor %}#}
+                    </ul>
+                    <div class="card-body">
+                        <button class="btn btn-outline-success btn-lg" type="button"><i class="fa fa-thumbs-up"></i>
+                            Like
+                        </button>
+                    </div>
+                </div>
+                <div class="card my-4">
+                    <h5 class="card-header">Leave a Comment:</h5>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header">Comments:</h5>
+                    <div class="card-body">
+{#                        {% for comment in recipe.comments.all %}#}
+                            <div class="media mb-4">
+                                <img class="d-flex mr-3 rounded-circle" src="sashko"
+                                     alt="">
+                                <div class="media-body">
+                                    <h5 class="mt-0">sashko <small
+                                            class="text-muted">23/03/23</small></h5>
+                                    {{ great }}
+                                </div>
+                            </div>
+{#                        {% empty %}#}
+                            <p>No comments yet.</p>
+{#                        {% endfor %}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
