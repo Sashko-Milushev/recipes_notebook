@@ -1,0 +1,30 @@
+{% extends 'base/base-page.html' %}
+
+{% block page_content %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">{{ form.title.label }}</div>
+
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data" action="{% url 'create recipe' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="form-group row mb-0">
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                  {{ button_text }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

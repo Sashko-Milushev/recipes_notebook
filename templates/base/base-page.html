@@ -17,7 +17,10 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Dashboard</a></li>
+                {% if user.is_authenticated %}
                 <li><a href="#">My Recipes</a></li>
+                <li><a href="{% url 'create recipe' %}">Create Recipe</a></li>
+                {% endif %}
             </ul>
             <form class="navbar-form navbar-left" action="/action_page.php">
                 <div class="input-group">
