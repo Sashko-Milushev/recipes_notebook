@@ -1,30 +1,44 @@
 {% extends 'base/base-page.html' %}
 
 {% block page_content %}
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">{{ form.title.label }}</div>
-
-        <div class="card-body">
-          <form method="POST" enctype="multipart/form-data" action="{% url 'create recipe' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-
-            <div class="form-group row mb-0">
-              <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                  {{ button_text }}
-                </button>
-              </div>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="title">Recipe Title:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter Recipe Title">
             </div>
-          </form>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="recipe_picture">Recipe Picture:</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control-file" id="recipe_picture" name="recipe_picture">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="description">Recipe Description:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="description" name="description"
+                          placeholder="Enter Recipe Description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="ingredients">Recipe Ingredients:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="ingredients" name="ingredients"
+                          placeholder="Enter Recipe Ingredients"></textarea>
+                <small class="form-text text-muted">Separate ingredients with commas (,)</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Create Recipe</button>
+            </div>
+        </div>
+    </form>
 
 {% endblock %}
