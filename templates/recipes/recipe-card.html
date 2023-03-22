@@ -45,9 +45,6 @@
                                     <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }}
                                         on {{ recipe.date_posted|date:"d/m/Y" }}</h5>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><strong>Ingredients:</strong></li>
-                                </ul>
                                 <div class="card-body">
                                     <a href="{% url 'recipe details' recipe.id %}" class="btn btn-primary">See
                                         Details</a>
