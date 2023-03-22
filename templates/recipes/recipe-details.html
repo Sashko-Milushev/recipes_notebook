@@ -1,0 +1,30 @@
+{% extends 'base/base-page.html' %}
+{% load static %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }}">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ recipe.title }}</h2>
+                        <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }}
+                            on {{ recipe.date_posted }}</h5>
+                        <p class="card-text">{{ recipe.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Ingredients:</strong></li>
+                        {% for ingredient in recipe.ingredients.all %}
+                            <li class="list-group-item">{{ ingredient.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="card-body">
+                        <a href="{% url 'recipe_update' pk=recipe.pk %}" class="btn btn-outline-primary">Edit</a>
+                        <a href="{% url 'recipe_delete' pk=recipe.pk %}" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

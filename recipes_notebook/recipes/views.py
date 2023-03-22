@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import generic as views
 
 from recipes_notebook.recipes.forms import RecipeForm
+from recipes_notebook.recipes.models import Recipe
 
 
 @login_required
@@ -27,3 +28,8 @@ def create_recipe(request):
     }
 
     return render(request, 'recipes/create-recipe.html', context)
+
+
+class RecipeDetailView(views.DetailView):
+    model = Recipe
+    template_name = 'recipes/recipe-details.html'

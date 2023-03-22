@@ -1,30 +1,62 @@
 {% extends 'base/base-page.html' %}
+{##}
+{#{% block page_content %}#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            {% for recipe in recipes %}#}
+{#                <div class="col-md-8">#}
+{#                    <div class="card mb-4">#}
+{#                        <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }} Image">#}
+{#                        <div class="card-body">#}
+{#                            <h2 class="card-title">{{ recipe.title }}</h2>#}
+{#                            <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }} on {{ recipe.created_date }}</h5>#}
+{#                            <p class="card-text">{{ recipe.description }}</p>#}
+{#                        </div>#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <li class="list-group-item"><strong>Ingredients:</strong></li>#}
+{#                            {% for ingredient in recipe.ingredients.all %}#}
+{#                                <li class="list-group-item">{{ ingredient }}</li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                        <div class="card-body">#}
+{#                            <a href="#" class="btn btn-outline-primary btn-lg"><i class="fa fa-eye"></i> View Recipe</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% empty %}#}
+{#                <p>No recipes yet.</p>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
 
 {% block page_content %}
     <div class="container">
         <div class="row">
             {% for recipe in recipes %}
-                <div class="col-md-8">
-                    <div class="card mb-4">
-                        <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }} Image">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ recipe.title }}</h2>
-                            <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }} on {{ recipe.created_date }}</h5>
-                            <p class="card-text">{{ recipe.description }}</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Ingredients:</strong></li>
-                            {% for ingredient in recipe.ingredients.all %}
-                                <li class="list-group-item">{{ ingredient }}</li>
-                            {% endfor %}
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-outline-primary btn-lg"><i class="fa fa-eye"></i> View Recipe</a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card recipe-card mb-4">
+                                <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }}"
+                                     style="height: 300px; width: 100%; object-fit: cover;">
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ recipe.title }}</h2>
+                                    <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }}
+                                        on {{ recipe.date_posted|date:"d/m/Y" }}</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Ingredients:</strong></li>
+                                </ul>
+                                <div class="card-body">
+                                    <a href="{% url 'recipe details' recipe.id %}" class="btn btn-primary">See
+                                        Details</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            {% empty %}
-                <p>No recipes yet.</p>
+
             {% endfor %}
         </div>
     </div>

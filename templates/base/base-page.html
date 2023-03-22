@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+          integrity="sha512-KK2wEfdW8cVNRQm6BZu6XLbU6SNpAzvLbU4byKmk4i4w8P6WEGbH5e5lCw5E0qap3qgSmv7DCEB9gbPChKi4iA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -18,8 +22,8 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'dashboard' %}">Dashboard</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="#">My Recipes</a></li>
-                <li><a href="{% url 'create recipe' %}">Create Recipe</a></li>
+                    <li><a href="#">My Recipes</a></li>
+                    <li><a href="{% url 'create recipe' %}">Create Recipe</a></li>
                 {% endif %}
             </ul>
             <form class="navbar-form navbar-left" action="/action_page.php">
@@ -34,7 +38,8 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'update user' pk=user.pk %}"><span class="glyphicon glyphicon-user"></span> My profile</a>
+                    <li><a href="{% url 'update user' pk=user.pk %}"><span class="glyphicon glyphicon-user"></span> My
+                        profile</a>
                     <li><a href="{% url 'logout user' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                     </li>
                 {% else %}
