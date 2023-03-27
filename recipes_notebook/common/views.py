@@ -19,7 +19,7 @@ class HomeView(views.TemplateView):
 
 class DashboardView(views.ListView):
     model = Recipe
-    template_name = 'recipes/recipe-card.html'
+    template_name = 'recipes/dashboard.html'
     context_object_name = 'recipes'
 
 

@@ -19,18 +19,17 @@
                                 </div>
                                 <div class="media-body">
                                     <p>{{ recipe.description|truncatechars:190 }}</p>
-
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <a href="#" class="btn btn-default"><span
-                                                    class="glyphicon glyphicon-thumbs-up"></span> Like</a>
+                                            <button class="btn btn-default like-btn" data-id="{{ recipe.id }}">
+                                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                                Like <span class="likes-count">{{ recipe.likes.count }}</span>
+                                            </button>
                                         </div>
                                         <div class="col-md-6 text-right">
                                             <a href="{% url 'recipe details' recipe.id %}"
                                                class="btn btn-primary float-right"><span
                                                     class="glyphicon glyphicon-eye-open"></span> See Details</a>
-                                            <a href="{% url 'recipe details' recipe.id %}" class="btn btn-primary"><span
-                                                    class="glyphicon glyphicon-comment"></span> Comment</a>
                                         </div>
                                     </div>
                                 </div>
