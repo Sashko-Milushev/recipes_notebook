@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
@@ -22,6 +23,22 @@ class DashboardView(views.ListView):
     model = Recipe
     template_name = 'recipes/dashboard.html'
     context_object_name = 'recipes'
+
+
+class MyDashboardView(LoginRequiredMixin, views.ListView):
+    model = Recipe
+    template_name = 'recipes/my-dashboard.html'
+    context_object_name = 'recipes'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(author=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if not context['recipes']:
+            context['no_recipes_message'] = "You haven't created any recipes yet."
+        return context
 
 
 @method_decorator(csrf_exempt, name='dispatch')
