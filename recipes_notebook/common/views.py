@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
@@ -71,3 +72,16 @@ class AddCommentView(views.View):
                 'form': form,
             }
             return render(request, 'recipes/recipe-details.html', context)
+
+
+class SearchRecipeView(views.View):
+    template_name = 'partials/search-results.html'
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('q')
+        if query:
+            recipes = Recipe.objects.filter(Q(title__icontains=query))
+            context = {'recipes': recipes, 'query': query}
+            return render(request, self.template_name, context)
+        else:
+            return render(request, self.template_name, {'query': query})

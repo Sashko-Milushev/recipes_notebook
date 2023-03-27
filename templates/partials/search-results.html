@@ -1,0 +1,16 @@
+{% extends 'base/base-page.html' %}
+
+{% block page_content %}
+    <div class="container">
+        <h1>Search results for "{{ query }}"</h1>
+        {% if recipes %}
+            <ul>
+                {% for recipe in recipes %}
+                    <li><a href="{% url 'recipe details' recipe.id %}">{{ recipe.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

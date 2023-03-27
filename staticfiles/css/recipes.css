@@ -33,4 +33,30 @@
   border-color: #007bff;
 }
 
+.search-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+}
+@media (min-width: 768px) {
+    .navbar-form.navbar-left {
+        margin-left: 0;
+    }
+}
+
+
+
+.navbar-nav > li {
+  float: left;
+}
+
+.navbar-nav {
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar-header {
+  float: left;
+}
 
