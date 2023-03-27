@@ -30,31 +30,74 @@
 {#    </div>#}
 {#{% endblock %}#}
 
+{#{% block page_content %}#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            {% for recipe in recipes %}#}
+{#                <div class="container">#}
+{#                    <div class="row">#}
+{#                        <div class="col-md-8">#}
+{#                            <div class="card recipe-card mb-4">#}
+{#                                <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }}"#}
+{#                                     style="height: 300px; width: 100%; object-fit: cover;">#}
+{#                                <div class="card-body">#}
+{#                                    <h2 class="card-title">{{ recipe.title }}</h2>#}
+{#                                    <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author.first_name }}#}
+{#                                        posted on {{ recipe.posted_on|date:"d/m/Y" }}</h5>#}
+{#                                </div>#}
+{#                                <div class="card-body">#}
+{#                                    <a href="{% url 'recipe details' recipe.id %}" class="btn btn-primary">See#}
+{#                                        Details</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
 {% block page_content %}
     <div class="container">
-        <div class="row">
-            {% for recipe in recipes %}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card recipe-card mb-4">
-                                <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }}"
-                                     style="height: 300px; width: 100%; object-fit: cover;">
-                                <div class="card-body">
-                                    <h2 class="card-title">{{ recipe.title }}</h2>
-                                    <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }}
-                                        on {{ recipe.date_posted|date:"d/m/Y" }}</h5>
+        {% for recipe in recipes %}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ recipe.title }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" src="{{ recipe.recipe_picture.url }}"
+                                             alt="{{ recipe.title }} Image" style="max-width: 200px;">
+                                    </a>
                                 </div>
-                                <div class="card-body">
-                                    <a href="{% url 'recipe details' recipe.id %}" class="btn btn-primary">See
-                                        Details</a>
+                                <div class="media-body">
+                                    <p>{{ recipe.description|truncatechars:190 }}</p>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="#" class="btn btn-default"><span
+                                                    class="glyphicon glyphicon-thumbs-up"></span> Like</a>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <a href="{% url 'recipe details' recipe.id %}"
+                                               class="btn btn-primary float-right"><span
+                                                    class="glyphicon glyphicon-eye-open"></span> See Details</a>
+                                            <a href="{% url 'recipe details' recipe.id %}" class="btn btn-primary"><span
+                                                    class="glyphicon glyphicon-comment"></span> Comment</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
                     </div>
                 </div>
-
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
