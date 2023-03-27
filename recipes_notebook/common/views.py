@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import generic as views
 from django.views.decorators.csrf import csrf_exempt
 
+from recipes_notebook.common.forms import CommentForm
 from recipes_notebook.common.models import Like
 from recipes_notebook.recipes.models import Recipe
 
@@ -35,3 +36,21 @@ class LikeRecipeView(views.View):
             like.delete()
             likes_count = recipe.likes.count()
         return JsonResponse({'likes_count': likes_count})
+
+
+class AddCommentView(views.View):
+    def post(self, request, *args, **kwargs):
+        recipe = get_object_or_404(Recipe, pk=kwargs['pk'])
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.recipe = recipe
+            comment.user = request.user
+            comment.save()
+            return redirect('recipe details', pk=recipe.pk)
+        else:
+            context = {
+                'recipe': recipe,
+                'form': form,
+            }
+            return render(request, 'recipes/recipe-details.html', context)

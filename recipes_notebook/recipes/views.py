@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic as views
 
+from recipes_notebook.common.forms import CommentForm
 from recipes_notebook.recipes.forms import RecipeForm, RecipeDeleteForm
 from recipes_notebook.recipes.models import Recipe
 
@@ -30,18 +32,38 @@ def create_recipe(request):
     return render(request, 'recipes/create-recipe.html', context)
 
 
-class RecipeDetailView(views.DetailView):
+class RecipeDetailView(LoginRequiredMixin, views.DetailView):
     model = Recipe
     template_name = 'recipes/recipe-details.html'
+    context_object_name = 'recipe'
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe = self.get_object()
         ingredients_list = recipe.ingredients.split(', ')
+        comment_form = CommentForm()
         context['likes'] = recipe.likes.all()
         context['comments'] = recipe.comments.all()
         context['ingredients_list'] = ingredients_list
+        context['comment_form'] = comment_form
+
         return context
+
+    def post(self, request, *args, **kwargs):
+        recipe = get_object_or_404(Recipe, pk=self.kwargs['pk'])
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.recipe = recipe
+            comment.user = request.user
+            comment.save()
+            messages.success(request, 'Your comment was added successfully.')
+        else:
+            messages.error(request, 'There was an error adding your comment.')
+
+        return self.get(request, *args, **kwargs)
 
 
 def update_recipe(request, pk):

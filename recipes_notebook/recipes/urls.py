@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from recipes_notebook.common.views import LikeRecipeView
+from recipes_notebook.common.views import LikeRecipeView, AddCommentView
 from recipes_notebook.recipes.views import create_recipe, RecipeDetailView, update_recipe, delete_recipe
 
 urlpatterns = (
@@ -9,7 +9,8 @@ urlpatterns = (
         path('', RecipeDetailView.as_view(), name='recipe details'),
         path('update/', update_recipe, name='update recipe'),
         path('delete/', delete_recipe, name='delete recipe'),
-        path('like/', LikeRecipeView.as_view(), name='like')
+        path('like/', LikeRecipeView.as_view(), name='like'),
+        path('comment/', AddCommentView.as_view(), name='add comment')
     ])),
 
 )

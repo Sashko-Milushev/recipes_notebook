@@ -1,3 +1,99 @@
+{#{% extends 'base/base-page.html' %}#}
+{#{% load static %}#}
+{#{% block page_content %}#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-6">#}
+{#                <div class="card mb-4">#}
+{#                    <img class="card-img-top" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }}"#}
+{#                         style="max-width:100%; height:auto;">#}
+{#                    <div class="card-body">#}
+{#                        <h2 class="card-title">{{ recipe.title }}</h2>#}
+{#                        <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }}#}
+{#                            on {{ recipe.date_posted }}</h5>#}
+{#                    </div>#}
+{##}
+{#                    <div class="card-footer text-muted">#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-4 text-center">#}
+{#                                <form method="POST" action="{% url 'like' recipe.id %}">#}
+{#                                    {% csrf_token %}#}
+{#                                    <button type="submit" class="btn btn-outline-primary btn-sm like-button"#}
+{#                                            data-url="{% url 'like' recipe.id %}">#}
+{#                                        <span class="glyphicon glyphicon-thumbs-up"></span> Like (<span#}
+{#                                            class="like-count">{{ likes.count }}</span>)#}
+{#                                    </button>#}
+{##}
+{##}
+{#                                </form>#}
+{##}
+{#                            </div>#}
+{#                            <div class="col-md-4 text-right">#}
+{#                                <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span>#}
+{#                                    Comment ({{ comments.count }})#}
+{#                                </button>#}
+{#                            </div>#}
+{#                            <div class="col-md-4">#}
+{#                                <button class="btn btn-outline-secondary btn-sm"#}
+{#                                        onclick="window.location.href='{% url 'dashboard' %}'">Back to list#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <script>#}
+{#                            $('.like-button').click(function () {#}
+{#                                const $button = $(this);#}
+{#                                const url = $button.data('url');#}
+{##}
+{#                                $.post(url, function (data) {#}
+{#                                    const $count = $button.find('.like-count');#}
+{#                                    $count.text(data.likes_count);#}
+{#                                });#}
+{#                                return false;#}
+{#                            });#}
+{#                        </script>#}
+{#                        {% if comments %}#}
+{#                            <hr>#}
+{#                            <h4>Comments</h4>#}
+{#                            <ul class="list-unstyled">#}
+{#                                {% for comment in comments %}#}
+{#                                    <li class="media">#}
+{#                                        <div class="media-body">#}
+{#                                            <h5 class="mt-0 mb-1">{{ comment.user }} <small#}
+{#                                                    class="text-muted">{{ comment.created_at|date:"F d, Y H:i" }}</small>#}
+{#                                            </h5>#}
+{#                                            <p>{{ comment.content }}</p>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                {% empty %}#}
+{#                                    <li>No comments yet.</li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        {% else %}#}
+{#                            <p>No comments yet.</p>#}
+{#                        {% endif %}#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-6">#}
+{#                <div class="card mb-4">#}
+{#                    <div class="card-body">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <li class="list-group-item"><strong>Ingredients:</strong></li>#}
+{#                            {% for ingredient in ingredients_list %}#}
+{#                                <li class="list-group-item">{{ ingredient }}</li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="card-body">#}
+{#                        <p class="card-text">{{ recipe.description }}</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
+
 {% extends 'base/base-page.html' %}
 {% load static %}
 {% block page_content %}
@@ -9,8 +105,8 @@
                          style="max-width:100%; height:auto;">
                     <div class="card-body">
                         <h2 class="card-title">{{ recipe.title }}</h2>
-                        <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author }}
-                            on {{ recipe.date_posted }}</h5>
+                        <h5 class="card-subtitle mb-3 text-muted">By {{ recipe.author.first_name }}
+                            on {{ recipe.posted_on }}</h5>
                     </div>
 
                     <div class="card-footer text-muted">
@@ -23,16 +119,9 @@
                                         <span class="glyphicon glyphicon-thumbs-up"></span> Like (<span
                                             class="like-count">{{ likes.count }}</span>)
                                     </button>
-
-
                                 </form>
+                            </div>
 
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span>
-                                    Comment ({{ comments.count }})
-                                </button>
-                            </div>
                             <div class="col-md-4">
                                 <button class="btn btn-outline-secondary btn-sm"
                                         onclick="window.location.href='{% url 'dashboard' %}'">Back to list
@@ -51,6 +140,8 @@
                                 return false;
                             });
                         </script>
+                        <hr>
+                        {% include 'partials/add-comment.html' %}
                         {% if comments %}
                             <hr>
                             <h4>Comments</h4>
@@ -68,7 +159,10 @@
                                     <li>No comments yet.</li>
                                 {% endfor %}
                             </ul>
+                        {% else %}
+                            <p>No comments yet.</p>
                         {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -90,3 +184,4 @@
         </div>
     </div>
 {% endblock %}
+

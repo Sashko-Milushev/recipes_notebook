@@ -1,0 +1,17 @@
+{% if user.is_authenticated %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <form method="post" action="{% url 'add comment' recipe.id %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    {{ comment_form.content }}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <p class="text-muted">You need to <a href="{% url 'login' %}">login</a> to add a comment.</p>
+{% endif %}
