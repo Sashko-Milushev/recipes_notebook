@@ -9,3 +9,28 @@
   overflow: hidden;
 }
 
+.btn {
+  border-radius: 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.back-to-list-btn {
+  color: #6c757d;
+}
+
+.like-btn {
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.comment-btn {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+
