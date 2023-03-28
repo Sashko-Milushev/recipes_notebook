@@ -1,16 +1,65 @@
 {% extends 'base/base-page.html' %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-BPFJ0hZCflOhpSpBDR6P8l7wLwUPfji0vxiv70oWkU6X1U6k1C7WOJUbsAdEJ7Vw"
+          crossorigin="anonymous">
+{% endblock %}
+
 {% block page_content %}
     <div class="container">
         <h1>Search results for "{{ query }}"</h1>
         {% for recipe in recipes %}
             <div class="search-result">
-                <i class="fas fa-utensils"></i>
-                <h3><a href="{% url 'recipe details' recipe.pk %}">{{ recipe.title }}</a></h3>
-                <p>{{ recipe.description| truncatechars:100 }}</p>
+                <div class="search-result-icon"><i class="fas fa-utensils"></i></div>
+                <div class="search-result-content">
+                    <h3><a href="{% url 'recipe details' recipe.pk %}">{{ recipe.title }}</a></h3>
+                    <p>{{ recipe.description|truncatechars:100 }}</p>
+                </div>
             </div>
         {% empty %}
             <p>No results found.</p>
         {% endfor %}
     </div>
+
+    <style>
+        .search-result {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-result-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e6e6e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .search-result-icon i {
+            font-size: 24px;
+            color: #888;
+        }
+
+        .search-result-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-result-content h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .search-result-content p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
 {% endblock %}
