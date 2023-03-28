@@ -1,7 +1,26 @@
 .card {
-    border: 1px solid black;
-    box-shadow: 0px 0px 10px #ddd;
+    border: 2px solid #f8d7da; /* Change the border color to a warm color */
+    border-radius: 8px; /* Add a little border radius */
+    margin-bottom: 20px; /* Add some space between the cards */
 }
+
+.card-img-top {
+    margin-bottom: 20px; /* Add some space between the image and the card body */
+}
+
+.card-body {
+    margin-bottom: 20px; /* Add some space between the card body and the card footer */
+    padding: 1rem;
+}
+
+.card-footer {
+    margin-top: 2rem; /* Add some space between the card and the comment section */
+}
+
+ul.list-group {
+    margin-bottom: 20px; /* Add some space between the ingredients list and the card body */
+}
+
 
 .recipe-card {
     border: 1px solid #ccc;
@@ -32,6 +51,8 @@
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+    font-size: 1.7rem !important;
+    padding: 0.25rem 0.5rem !important;
 }
 
 .search-btn {

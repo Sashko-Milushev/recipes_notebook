@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'recipes_notebook.recipes',
 
     'cloudinary',
+    'widget_tweaks',
 
 ]
 

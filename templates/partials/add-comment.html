@@ -1,12 +1,15 @@
+{% load widget_tweaks %}
 {% if user.is_authenticated %}
-    <div class="card mt-3">
+    <div class="mt-3">
         <div class="card-body">
             <form method="post" action="{% url 'add comment' recipe.id %}">
                 {% csrf_token %}
-                <div class="input-group">
-                    {{ comment_form.content }}
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">Post</button>
+                <div class="row">
+                    <div class="col-md-9">
+                        {{ comment_form.content|add_class:"form-control mb-2" }}
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="comment-btn btn-primary btn-sm">Post</button>
                     </div>
                 </div>
             </form>
