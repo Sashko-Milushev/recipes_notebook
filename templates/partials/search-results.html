@@ -3,14 +3,14 @@
 {% block page_content %}
     <div class="container">
         <h1>Search results for "{{ query }}"</h1>
-        {% if recipes %}
-            <ul>
-                {% for recipe in recipes %}
-                    <li><a href="{% url 'recipe details' recipe.id %}">{{ recipe.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
+        {% for recipe in recipes %}
+            <div class="search-result">
+                <i class="fas fa-utensils"></i>
+                <h3><a href="{% url 'recipe details' recipe.pk %}">{{ recipe.title }}</a></h3>
+                <p>{{ recipe.description| truncatechars:100 }}</p>
+            </div>
+        {% empty %}
             <p>No results found.</p>
-        {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}
