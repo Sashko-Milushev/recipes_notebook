@@ -31,10 +31,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <form method="POST" action="{% url 'delete recipe' pk=recipe.pk %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                </form>
+                                <a href="{% url 'delete recipe' pk=recipe.pk %}" class="btn btn-outline-primary btn-sm">Delete</a>
                             </div>
                             {% endif %}
                         </div>

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic as views
 
 from recipes_notebook.common.forms import CommentForm
-from recipes_notebook.recipes.forms import RecipeForm, RecipeDeleteForm
+from recipes_notebook.recipes.forms import RecipeForm
 from recipes_notebook.recipes.models import Recipe
 
 
@@ -90,7 +90,6 @@ def update_recipe(request, pk):
 
     return render(request, 'recipes/update-recipe.html', context)
 
-
 @login_required
 def delete_recipe(request, pk):
     recipe = Recipe.objects.filter(pk=pk).get()
@@ -99,19 +98,14 @@ def delete_recipe(request, pk):
         messages.warning(request, 'You do not have permission to delete this recipe.')
         return redirect('recipe details', pk=recipe.pk)
 
-    if request.method == 'GET':
-        form = RecipeDeleteForm(instance=recipe)
-    else:
-        form = RecipeDeleteForm(request.POST or None, instance=recipe)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your recipe has been deleted.')
-            return redirect('dashboard')
+    if request.method == 'POST':
+        recipe.delete()
+        messages.success(request, 'Your recipe has been deleted.')
+        return redirect('dashboard')
 
     context = {
-        'form': form,
         'pk': pk,
         'recipe': recipe
     }
 
-    return redirect(request, 'recipes/delete-recipe', context)
+    return render(request, 'recipes/delete-recipe.html', context)
