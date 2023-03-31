@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h2>update</h2>
-</body>
-</html>
+{% extends 'base/base-page.html' %}
+
+{% block page_content %}
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="title">Recipe Title:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="title" value="{{ recipe.title }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="recipe_picture">Recipe Picture:</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control-file" id="recipe_picture" name="recipe_picture">
+                <img src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title }}" width="100" height="100">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="description">Recipe Description:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="description" name="description">{{ recipe.description }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="ingredients">Recipe Ingredients:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="ingredients" name="ingredients">{{ recipe.ingredients }}</textarea>
+                <small class="form-text text-muted">Separate ingredients with commas (,)</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Update Recipe</button>
+                <a href="{% url 'recipe details' pk=recipe.pk %}" class="btn btn-primary">Back to Recipe Details</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

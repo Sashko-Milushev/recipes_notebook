@@ -37,7 +37,6 @@ class RecipeDetailView(LoginRequiredMixin, views.DetailView):
     template_name = 'recipes/recipe-details.html'
     context_object_name = 'recipe'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe = self.get_object()
@@ -66,16 +65,22 @@ class RecipeDetailView(LoginRequiredMixin, views.DetailView):
         return self.get(request, *args, **kwargs)
 
 
+@login_required
 def update_recipe(request, pk):
     recipe = Recipe.objects.filter(pk=pk).get()
+
+    if recipe.author != request.user:
+        messages.warning(request, 'You do not have permission to edit this recipe.')
+        return redirect('recipe details', pk=recipe.pk)
 
     if request.method == 'GET':
         form = RecipeForm(instance=recipe)
     else:
-        form = RecipeForm(request.POST, instance=recipe)
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')
+            messages.success(request, 'Your recipe has been updated.')
+            return redirect('recipe details', pk=recipe.pk)
 
     context = {
         'form': form,
@@ -86,8 +91,13 @@ def update_recipe(request, pk):
     return render(request, 'recipes/update-recipe.html', context)
 
 
+@login_required
 def delete_recipe(request, pk):
     recipe = Recipe.objects.filter(pk=pk).get()
+
+    if recipe.author != request.user:
+        messages.warning(request, 'You do not have permission to delete this recipe.')
+        return redirect('recipe details', pk=recipe.pk)
 
     if request.method == 'GET':
         form = RecipeDeleteForm(instance=recipe)
@@ -95,6 +105,7 @@ def delete_recipe(request, pk):
         form = RecipeDeleteForm(request.POST or None, instance=recipe)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Your recipe has been deleted.')
             return redirect('dashboard')
 
     context = {

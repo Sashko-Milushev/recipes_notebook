@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h2>Delete</h2>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <h2>Delete Recipe</h2>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <p>Are you sure you want to delete {{ recipe.title }}?</p>
+                        <p>This action cannot be undone.</p>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Delete Recipe">
+                        <a href="{% url 'recipe details' pk=recipe.pk %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
