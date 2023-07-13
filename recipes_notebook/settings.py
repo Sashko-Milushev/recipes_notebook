@@ -1,3 +1,4 @@
+import cloudinary
 from pathlib import Path
 from decouple import config
 
@@ -127,6 +128,10 @@ STATICFILES_DIRS = (
 
 AUTH_USER_MODEL = 'accounts.AppUser'
 
-CLOUDINARY_URL = config('CLOUDINARY_URL')
+cloudinary.config(
+    cloud_name=config('CLOUD_NAME'),
+    api_key=config('CLOUD_API_KEY'),
+    api_secret=config('CLOUD_API_SECRET_KEY')
+)
 
 LOGIN_REDIRECT_URL = 'home'
