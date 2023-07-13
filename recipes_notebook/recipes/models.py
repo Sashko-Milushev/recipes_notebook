@@ -23,7 +23,12 @@ class Recipe(models.Model):
         null=False
     )
 
-    recipe_picture = CloudinaryField('image')
+    recipe_picture = CloudinaryField(
+        folder='recipes/',
+        blank=False,
+        null=False,
+
+    )
 
     description = models.TextField(
         verbose_name='Recipe Description',
